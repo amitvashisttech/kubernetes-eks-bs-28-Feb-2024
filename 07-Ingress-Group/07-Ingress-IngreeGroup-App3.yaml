@@ -1,23 +1,22 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-world
+  name: app3
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: web-app-group
-    alb.ingress.kubernetes.io/healthcheck-path: /
-
+    alb.ingress.kubernetes.io/healthcheck-path: /app3/index.html
 spec:
   ingressClassName: alb
   rules:
   - http:
       paths:
-      - path: /
+      - path: /app3/
         pathType: Prefix
         backend:
           service:
-            name: helloworld-service
+            name: app3-nginx-nodeport-service
             port:
-              number: 31005
+              number: 80
 

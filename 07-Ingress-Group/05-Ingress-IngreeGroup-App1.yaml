@@ -1,22 +1,22 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: python-webapp-svc
+  name: app1
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-path: /info
     alb.ingress.kubernetes.io/group.name: web-app-group
+    alb.ingress.kubernetes.io/healthcheck-path: /app1/index.html
 spec:
   ingressClassName: alb
   rules:
   - http:
       paths:
-      - path: /info
+      - path: /app1/
         pathType: Prefix
         backend:
           service:
-            name: python-webapp-svc
+            name: app1-nginx-nodeport-service
             port:
-              number: 31007
+              number: 80
 
