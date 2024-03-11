@@ -1,0 +1,190 @@
+   25  mkdir 18-Helm-Custom-Charts
+   26  ls
+   27  cd 18-Helm-Custom-Charts/
+   28  helm create my-tiny-web
+   29  ls
+   30  apt-get install tree -y 
+   31  ls
+   32  tree . 
+   33  ls
+   34  cd my-tiny-web/
+   35  ls
+   36  cat Chart.yaml 
+   37  ls
+   38  cat templates/deployment.yaml 
+   39  ls
+   40  cat templates/service.yaml 
+   41  ls
+   42  vim values.yaml 
+   43  ls
+   44  cd ..
+   45  ls
+   46  helm install my-web-1 my-tiny-web --dry-run 
+   47  helm install my-web-1 my-tiny-web 
+   48  curl localhost:8080
+   49  ls
+   50  helm list 
+   51  helm uninstall 
+   52  helm uninstall my-web-1
+   53  ls
+   54  mkidr v1
+   55  mkdir v1
+   56  s
+   57  ls
+   58  cp -rf my-tiny-web v1/
+   59  ls
+   60  mkdir default 
+   61  ls
+   62  mv my-tiny-web default/
+   63  ls
+   64  cd v1/my-tiny-web/
+   65  ls
+   66  vim Chart.yaml 
+   67  ls
+   68  vim values.yaml 
+   69  ls
+   70  cd ..
+   71  ls
+   72  helm install my-web-1 my-tiny-web --dry-run 
+   73  vim my-tiny-web/values.yaml 
+   74  helm install my-web-1 my-tiny-web --dry-run 
+   75  helm install my-web-1 my-tiny-web 
+   76  helm list 
+   77  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=my-tiny-web,app.kubernetes.io/instance=my-web-1" -o jsonpath="{.items[0].metadata.name}")
+   78  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+   79  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+   80  ls
+   81  cd ..
+   82  ls
+   83  cp -rf v1 v2 
+   84  ls
+   85  cd v2/
+   86  ls
+   87  cd my-tiny-web/
+   88  ls
+   89  vim values.yaml 
+   90  ls
+   91  vim Chart.yaml 
+   92  ls
+   93  cd ..
+   94  ls
+   95  helm list 
+   96  ls
+   97  helm install my-web-2 my-tiny-web --dry-run 
+   98  helm install my-web-2 my-tiny-web 
+   99  helm list 
+  100  helm uninstall my-web-2
+  101  helm list 
+  102  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+  103  kubectl get pods 
+  104  helm list 
+  105  helm history my-web-1
+  106  helm upgrade my-web-1 my-tiny-web
+  107  helm history my-web-1
+  108  kubectl get pods 
+  109  kubectl describe pod my-web-1-my-tiny-web-849588cfbf-6t6rd
+  110  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+  111  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=my-tiny-web,app.kubernetes.io/instance=my-web-1" -o jsonpath="{.items[0].metadata.name}")
+  112  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  113  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+  114  ls
+  115  vim my-tiny-web/values.yaml 
+  116  vim my-tiny-web/Chart.yaml 
+  117  ls
+  118  helm upgrade my-web-1 my-tiny-web
+  119  helm history my-web-1
+  120  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services my-web-1-my-tiny-web)
+  121  export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+  122  helm history my-web-1
+  123  kubectl get pods 
+  124  kubectl describe pods my-web-1-my-tiny-web-74d788f9f5-xmxgj
+  125  helm history my-web-1
+  126  helm list 
+  127  helm rollback my-web-1
+  128  helm history my-web-1
+  129  kubectl get pods 
+  130  kubectl describe pods my-web-1-my-tiny-web-849588cfbf-5s9z4
+  131  ls
+  132  helm rollback my-web-1
+  133  helm history my-web-1
+  134  helm rollback my-web-1 --to-revision 1
+  135  helm rollback my-web-1 help 
+  136  helm rollback --help
+  137  helm rollback my-web-1 1 
+  138  helm history my-web-1
+  139  ls
+  140  helm install my-web-1
+  141  helm uninstall my-web-1
+  142  ls
+  143  cd ..
+  144  ls
+  145  mkdir environment-dev-prod
+  146  ls
+  147  cd environment-dev-prod/
+  148  ls
+  149  cp -rf ../v1/my-tiny-web . 
+  150  ls
+  151  vim my-tiny-web/values.yaml 
+  152  ls
+  153  cp -rf my-tiny-web/values.yaml dev.yaml 
+  154  cp -rf my-tiny-web/values.yaml prod.yaml
+  155  ls
+  156  vim dev.yaml 
+  157  ls
+  158  vim prod.yaml 
+  159  ls
+  160  helm install my-web-dev my-tiny-web -f dev.yaml 
+  161  helm install my-web-prod my-tiny-web -f prod.yaml 
+  162  helm list 
+  163  kubectl get pods 
+  164  kubectl describe pod my-web-dev-my-tiny-web-6644685f-7ktnx
+  165  kubectl get pods 
+  166  kubectl describe pod | grep -i image 
+  167  ls
+  168  helm  list 
+  169  helm uninstall my-tiny-web 
+  170  helm uninstall my-web-dev
+  171  helm uninstall my-web-prod
+  172  ls
+  173  cd ..
+  174  ls
+  175  helm create my-py-web
+  176  ls
+  177  cd my-py-web/
+  178  ls
+  179  vim values.yaml 
+  180  ls
+  181  cd ..
+  182  ls
+  183  helm install my-py-web-app my-py-web --dry-run 
+  184  helm install my-py-web-app my-py-web 
+  185  helm list 
+  186  watch -n .5 kubectl get pods 
+  187  ls
+  188  vim my-py-web/values.yaml 
+  189  vim my-py-web/templates/deployment.yaml 
+  190  vim my-py-web/values.yaml 
+  191  vim my-py-web/templates/deployment.yaml 
+  192  ls
+  193  vim my-py-web/values.yaml 
+  194  vim my-py-web/Chart.yaml 
+  195  ls
+  196  helm list 
+  197  kubectl get pods 
+  198  helm update my-py-web-app my-py-web/
+  199  helm upgrade my-py-web-app my-py-web/
+  200  kubectl get pods 
+  201  kubectl describe pods my-py-web-app-849ff6465-6p2v9
+  202  kubectl get pods 
+  203  curl localhost:8080
+  204  curl localhost:8080/info
+  205  kubectl get pods 
+  206  kubectl get pods -o wide 
+  207  ls
+  208  cd ..
+  209  ls
+  210  history 
+  211  ls
+  212  cd 18-Helm-Custom-Charts/
+  213  ls
+  214  history > History.txt 
