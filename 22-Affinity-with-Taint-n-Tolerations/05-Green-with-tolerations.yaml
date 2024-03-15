@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-tc
+  labels:
+    app: green-tc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: green-tc
+  template:
+    metadata:
+      labels:
+        app: green-tc
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: k8s-demo
+        image: amitvashist7/k8s-tiny-web
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: node-port
+          containerPort: 80
+      tolerations:
+      - key: "team"
+        operator: "Equal"
+        value: "green"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: team
+                operator: In
+                values:
+                - green

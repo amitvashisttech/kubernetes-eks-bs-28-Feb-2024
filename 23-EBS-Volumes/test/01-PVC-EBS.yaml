@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: efs
+  name: ebs-test-1
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "efs-storage-class"
+  storageClassName: "gp2"
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
