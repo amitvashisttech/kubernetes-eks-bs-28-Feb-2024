@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello
+    version: v3
+  name: hello-v3
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello
+      version: v3
+  template:
+    metadata:
+      labels:
+        app: hello
+        version: v3
+    spec:
+      containers:
+      - name: hello
+        image: amitvashist7/http-echo
+        env: 
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: TEXT
+          value: hello, this is $(MY_POD_NAME) 
+        ports:
+        - name: http
+          containerPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello
+    version: v3
+  name: hello-v3-latency
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+      version: v3
+  template:
+    metadata:
+      labels:
+        app: hello
+        version: v3
+    spec:
+      containers:
+      - name: hello
+        image: amitvashist7/http-echo
+        env: 
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: TEXT
+          value: hello, this is $(MY_POD_NAME)  
+        - name: LATENCY
+          value: "5"
+        ports:
+        - name: http
+          containerPort: 8080
