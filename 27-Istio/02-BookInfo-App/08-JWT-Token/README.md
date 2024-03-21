@@ -30,7 +30,7 @@ spec:
       app: httpbin
   jwtRules:
   - issuer: "testing@secure.istio.io"
-    jwksUri: "https://raw.githubusercontent.com/istio/istio/release-1.13/security/tools/jwt/samples/jwks.json"
+    jwksUri: "https://raw.githubusercontent.com/istio/istio/release-1.21/security/tools/jwt/samples/jwks.json"
 EOF
 
 ```
@@ -70,7 +70,7 @@ EOF
 
 ### Now, Get the JWT that sets the iss and sub keys to the same value, testing@secure.istio.io. This causes Istio to generate the attribute requestPrincipal with the value testing@secure.istio.io/testing@secure.istio.io:
 ```
-TOKEN=$(curl https://raw.githubusercontent.com/istio/istio/release-1.13/security/tools/jwt/samples/demo.jwt -s) && echo "$TOKEN" | cut -d '.' -f2 - | base64 --decode -
+TOKEN=$(curl https://raw.githubusercontent.com/istio/istio/release-1.21/security/tools/jwt/samples/demo.jwt -s) && echo "$TOKEN" | cut -d '.' -f2 - | base64 --decode -
 
 ```
 
@@ -112,7 +112,7 @@ EOF
 
 ### Get the JWT that sets the groups claim to a list of strings: group1 and group2:
 ```
-TOKEN_GROUP=$(curl https://raw.githubusercontent.com/istio/istio/release-1.13/security/tools/jwt/samples/groups-scope.jwt -s) && echo "$TOKEN_GROUP" | cut -d '.' -f2 - | base64 --decode -
+TOKEN_GROUP=$(curl https://raw.githubusercontent.com/istio/istio/release-1.21/security/tools/jwt/samples/groups-scope.jwt -s) && echo "$TOKEN_GROUP" | cut -d '.' -f2 - | base64 --decode -
 ```
 
 ### Verify that a request with the JWT that includes group1 in the groups claim is allowed:
