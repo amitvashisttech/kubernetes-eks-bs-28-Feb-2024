@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: onepageserver-secondary
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://gitlab.com/devops5944034/samplegitopsapp.git'
+    path: myapp/onepageapp
+    targetRevision: main
+  destination:
+    server: 'https://172.31.0.101:6443'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

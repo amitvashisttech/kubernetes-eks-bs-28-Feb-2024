@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+  labels:
+    app: helloworld-db
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helloworld-db
+  template:
+    metadata:
+      labels:
+        app: helloworld-db
+    spec:
+      containers:
+      - name: k8s-demo
+        image: amitvashist7/k8s-demo
+        command: ["node", "index-db.js"]
+        ports:
+        - name: nodejs-port
+          containerPort: 3000
+        env:
+          - name: MYSQL_HOST
+            value: mysql-service
+            #value: database-service
+          - name: MYSQL_USER
+            value: admin
+          - name: MYSQL_PASSWORD
+            value: AdminRdsEksPass
+          - name: MYSQL_DATABASE
+            value: helloworld 
