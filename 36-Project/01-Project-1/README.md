@@ -1,8 +1,8 @@
 ## EKS Cluster Setup with Istio Integration
 
-#### Objective: This project aims to provide participants with a comprehensive understanding of setting up an Amazon EKS cluster and integrating Istio for service mesh capabilities.
+### Objective: This project aims to provide participants with a comprehensive understanding of setting up an Amazon EKS cluster and integrating Istio for service mesh capabilities.
 
-#### Tasks:
+### Tasks:
 #### * Provision an Amazon EKS cluster using AWS Management Console or AWS CLI.
 #### * Install Istio on the EKS cluster using Istioctl or Helm charts.
 #### * Deploy a sample microservices-based application onto the EKS cluster.
