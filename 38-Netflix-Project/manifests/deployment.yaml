@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: netflix-demo
-        image: amitvashist7/netflix:latest
+        image: amitvashist7/netflix:12
         ports:
         - name: node-port
           containerPort: 80
