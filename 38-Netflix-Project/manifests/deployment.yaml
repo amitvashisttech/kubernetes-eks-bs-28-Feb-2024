@@ -5,7 +5,7 @@ metadata:
   labels:
     app: netflix
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: netflix
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: netflix-demo
-        image: amitvashist7/netflix-app:3
+        image: amitvashist7/netflix-app:4
         ports:
         - name: node-port
           containerPort: 80
