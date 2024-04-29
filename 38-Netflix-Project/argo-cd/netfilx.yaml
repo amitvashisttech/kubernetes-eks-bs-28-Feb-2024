@@ -7,7 +7,7 @@ spec:
     project: default
     source:
         repoURL: 'https://github.com/amitvashisttech/kubernetes-eks-bs-28-Feb-2024.git'
-        path: manifests
+        path: 38-Netflix-Project/manifests/
         targetRevision: main
     destination:
         server: 'https://kubernetes.default.svc'
