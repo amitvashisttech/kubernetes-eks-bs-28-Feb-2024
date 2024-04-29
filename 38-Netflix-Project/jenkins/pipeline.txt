@@ -50,7 +50,7 @@ pipeline{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                        dockerImageTag = env.BUILD_ID
                        sh "docker build --build-arg TMDB_V3_API_KEY='yourtmdbkey' -t netflix-app ."
-                       sh "docker tag netflix amitvashist7/netflix-app:${dockerImageTag}"
+                       sh "docker tag netflix-app amitvashist7/netflix-app:${dockerImageTag}"
                        sh "docker push amitvashist7/netflix-app:${dockerImageTag}"
                     }
                 }
