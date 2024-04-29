@@ -16,7 +16,11 @@ spec:
     spec:
       containers:
       - name: netflix-demo
+<<<<<<< HEAD
         image: amitvashist7/netflix-app:3
+=======
+        image: amitvashist7/netflix:12
+>>>>>>> 34c3236e1948d0cb40cf681ce96730fe4555282a
         ports:
         - name: node-port
           containerPort: 80
