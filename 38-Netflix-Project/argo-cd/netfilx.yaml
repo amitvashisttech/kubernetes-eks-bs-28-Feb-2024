@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: netflix
+    namespace: argocd
+spec:
+    project: default
+    source:
+        repoURL: 'https://github.com/amitvashisttech/kubernetes-eks-bs-28-Feb-2024.git'
+        path: manifests
+        targetRevision: main
+    destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: default
+

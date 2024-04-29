@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: netflix
+    argocd.argoproj.io/instance: netflix
+  name: netflix-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: netflix
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+
