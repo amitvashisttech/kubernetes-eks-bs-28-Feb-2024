@@ -1,0 +1,20 @@
+# kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+
+namespace: default
+
+patches:
+- target:
+    kind: Deployment
+    name: helloworld-deployment
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: helloworld-deployment
+    spec:
+      replicas: 4

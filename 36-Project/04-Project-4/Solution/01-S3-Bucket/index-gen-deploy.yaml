@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: index-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: index-generator
+  template:
+    metadata:
+      labels:
+        app: index-generator
+    spec:
+      containers:
+      - name: index-generator
+        image: python:alpine
+        command: ["sh", "-c", "apk add --no-cache py3-pip && pip install boto3 && python /scripts/index_generator.py"]
+        volumeMounts:
+        - name: script-volume
+          mountPath: /scripts
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: access-key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: secret-key
+      volumes:
+      - name: script-volume
+        configMap:
+          name: index-generator-script
+

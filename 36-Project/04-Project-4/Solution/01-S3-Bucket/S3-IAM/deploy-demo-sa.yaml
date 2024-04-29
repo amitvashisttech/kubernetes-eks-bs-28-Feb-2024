@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      serviceAccountName: "demo-sa"
+      initContainers:
+      - name: demo-aws-cli
+        image: amazon/aws-cli
+        command: ['aws', 's3', 'cp', 's3://test-bucket-1-eks/index.html', '-' ]
+      containers:
+      - name: my-app
+        image: nginx

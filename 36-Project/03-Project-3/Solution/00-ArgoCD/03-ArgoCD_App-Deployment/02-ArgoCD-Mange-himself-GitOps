@@ -1,0 +1,34 @@
+1. Create a new YAML file called `argocd.yaml` and add the following:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://gitlab.com/[your username]/samplegitopsapp.git'
+    path: argo-cd
+    targetRevision: main
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+```
+
+3. Apply the above configuration by running:
+
+   ```bash
+   kubectl apply -f argocd.yaml
+   ```
+
+4. Go to the UI of Argo CD.
+
+5. Login using the username of `admin` and your password
+
+6. Delete the `nginx` application from the UI. You need to type the name of the application `nginx` in the dialog box for the deletion operation to complete.
